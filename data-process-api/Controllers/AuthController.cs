@@ -15,11 +15,11 @@ namespace data_process_api.Controllers {
     [ApiController]
 
     public class AuthController : ControllerBase {
-        private readonly Models.Context.AppContext _context;
+        private readonly Models.Context.DatabaseContext _context;
         private readonly IConfiguration _configuration;
 
 
-        public AuthController(Models.Context.AppContext context, IConfiguration configuration) {
+        public AuthController(Models.Context.DatabaseContext context, IConfiguration configuration) {
             this._configuration = configuration;
             this._context = context;
         }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 namespace data_process_api.Models.Context {
-    public class AppContext : DbContext{
-        public AppContext(DbContextOptions<AppContext> options) : base(options) { }
+    public class DatabaseContext : DbContext{
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
         public DbSet<Carro> Carros { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }

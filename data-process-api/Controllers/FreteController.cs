@@ -3,6 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace data_process_api.Controllers {
     public class FreteController : GenericController<Frete> {
-        public FreteController(Models.Context.AppContext context) : base(context) { }
+        public FreteController(Models.Context.DatabaseContext context) : base(context) { }
     }
 }

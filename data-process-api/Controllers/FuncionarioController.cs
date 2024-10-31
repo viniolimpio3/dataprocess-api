@@ -12,9 +12,9 @@ namespace data_process_api.Controllers {
     [Route("api/v{v:apiVersion}/[controller]")]
     public class FuncionarioController : ControllerBase {
 
-        private readonly Models.Context.AppContext _context;
+        private readonly Models.Context.DatabaseContext _context;
 
-        public FuncionarioController(Models.Context.AppContext context) { 
+        public FuncionarioController(Models.Context.DatabaseContext context) { 
             _context = context;
         }
 

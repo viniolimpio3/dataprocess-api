@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen();
 // DB Contexts - Entity
 MySqlServerVersion mySqlVersion = new MySqlServerVersion(new Version(8, 0, 39));
 
-builder.Services.AddDbContext<data_process_api.Models.Context.AppContext>(options =>
+builder.Services.AddDbContext<data_process_api.Models.Context.DatabaseContext>(options =>
     options.UseMySql(Environment.GetEnvironmentVariable("STRING_CONEXAO_MYSQL") ?? builder.Configuration.GetConnectionString("DefaultConnection"), mySqlVersion)
 );
 // API Versioning
