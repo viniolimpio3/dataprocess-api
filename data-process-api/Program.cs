@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,14 +19,9 @@ builder.Services.AddSwaggerGen();
 // DB Contexts - Entity
 MySqlServerVersion mySqlVersion = new MySqlServerVersion(new Version(8, 0, 39));
 
-builder.Services.AddDbContext<FuncionarioContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), mySqlVersion)
+builder.Services.AddDbContext<data_process_api.Models.Context.AppContext>(options =>
+    options.UseMySql(Environment.GetEnvironmentVariable("STRING_CONEXAO_MYSQL") ?? builder.Configuration.GetConnectionString("DefaultConnection"), mySqlVersion)
 );
-
-builder.Services.AddDbContext<UsuariosContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), mySqlVersion)
-);
-
 // API Versioning
 builder.Services.AddApiVersioning(options => {
     options.DefaultApiVersion = new Asp.Versioning.ApiVersion(1,0);
@@ -46,6 +42,7 @@ builder.Services.AddAuthentication(options => {
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+
 //AddJwtBearer
 .AddJwtBearer(options => {
     options.SaveToken = true;
@@ -55,9 +52,9 @@ builder.Services.AddAuthentication(options => {
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+        ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? builder.Configuration["JWT:ValidAudience"],
+        ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? builder.Configuration["JWT:ValidIssuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET") ?? builder.Configuration["JWT:Secret"]))
     };
 });
 

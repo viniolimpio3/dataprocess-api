@@ -8,17 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace data_process_api.Controllers {
     [Route("api/[controller]")]
     [ApiController]
 
     public class AuthController : ControllerBase {
-        private readonly UsuariosContext _context;
+        private readonly Models.Context.AppContext _context;
         private readonly IConfiguration _configuration;
 
 
-        public AuthController(UsuariosContext context, IConfiguration configuration) {
+        public AuthController(Models.Context.AppContext context, IConfiguration configuration) {
             this._configuration = configuration;
             this._context = context;
         }
@@ -76,11 +77,11 @@ namespace data_process_api.Controllers {
         }
 
         private TokenModel GetToken(List<Claim> authClaims) {
-            var authSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var authSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET") ?? _configuration["JWT:Secret"]));
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
+                issuer: Environment.GetEnvironmentVariable("JWT_ISSUER") ?? _configuration["JWT:ValidIssuer"],
+                audience: Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? _configuration["JWT:ValidAudience"],
                 expires: DateTime.Now.AddMinutes(30),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
