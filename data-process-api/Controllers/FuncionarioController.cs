@@ -12,9 +12,9 @@ namespace data_process_api.Controllers {
     [Route("api/v{v:apiVersion}/[controller]")]
     public class FuncionarioController : ControllerBase {
 
-        private readonly FuncionarioContext _context;
+        private readonly Models.Context.AppContext _context;
 
-        public FuncionarioController(FuncionarioContext context) { 
+        public FuncionarioController(Models.Context.AppContext context) { 
             _context = context;
         }
 
@@ -30,13 +30,12 @@ namespace data_process_api.Controllers {
         public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionarios() {
             try {
                 List<Funcionario> funcionarios = await _context.Funcionarios.ToListAsync();
-                Response.StatusCode = 200;
                 
-                return funcionarios;
+                return Ok(new ResponseModel { Success = true, Message = "Sucesso", Data = funcionarios});
             } catch (Exception ex) {
                 return StatusCode(
                     StatusCodes.Status400BadRequest,
-                    new ResponseModel { Success = false, Message = "Erro ao buscar. " + ex.Message }
+                    new ResponseModel { Success = false, Message = "Erro ao buscar. " + ex.Message, Data = ex.Data }
                 );
             }
         }
@@ -44,9 +43,9 @@ namespace data_process_api.Controllers {
         // GET api/<FuncionarioController>/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<IActionResult> Get([FromBody] Funcionario req) {
+        public async Task<IActionResult> Get(string id) {
             try {
-                var funcionario = await _context.Funcionarios.FirstOrDefaultAsync(u => u.Id == req.Id);
+                var funcionario = await _context.Funcionarios.FirstOrDefaultAsync( u => u.Id == int.Parse(id));
 
                 if (funcionario == null) { 
                     return NotFound(new ResponseModel { Success = false, Message = "Not Found", Data = {} });
@@ -89,9 +88,9 @@ namespace data_process_api.Controllers {
         // PUT api/<FuncionarioController>/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> Put([FromBody] Funcionario req) {
+        public async Task<IActionResult> Put(string id, [FromBody] Funcionario req) {
             try {
-                var funcionario = await _context.Funcionarios.FirstOrDefaultAsync(u => u.Id == req.Id);
+                var funcionario = await _context.Funcionarios.FirstOrDefaultAsync(u => u.Id == int.Parse(id));
 
                 if (funcionario == null) {
                     return NotFound(new ResponseModel { Success = false, Message = "Registro já existe" });
@@ -113,7 +112,20 @@ namespace data_process_api.Controllers {
 
         // DELETE api/<FuncionarioController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id) {
+        public async Task<IActionResult> Delete(int id) {
+            try {
+                var funcionario = await _context.Funcionarios.Where(u => u.Id == id).ExecuteDeleteAsync();
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new ResponseModel { Success = true, Message = "Deletado com sucesso.", Data = Empty });
+
+            } catch (Exception ex) {
+                return StatusCode(
+                    StatusCodes.Status400BadRequest,
+                    new ResponseModel { Success = false, Message = "Erro ao deletar. " + ex.Message }
+                );
+            }
         }
     }
 }
