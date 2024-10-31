@@ -1,9 +1,11 @@
 ﻿using data_process_api.Models;
 using data_process_api.Models.Context;
 using data_process_api.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -91,6 +93,27 @@ namespace data_process_api.Controllers {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 ValidTo = token.ValidTo
             };
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("delete/{email}")]
+        public async Task<IActionResult> DeleteAsync(string email) {
+
+            try {
+                var entity = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+                if (entity == null) {
+                    return NotFound(new ResponseModel { Success = false, Message = "Not Found" });
+                }
+
+                _context.Usuarios.Remove(entity);
+                await _context.SaveChangesAsync();
+
+                return Ok(new ResponseModel { Success = true, Message = "Deletado com sucesso." });
+            } catch (Exception ex) {
+                return StatusCode(StatusCodes.Status400BadRequest,
+                    new ResponseModel { Success = false, Message = "Erro ao deletar. " + ex.Message });
+            }
         }
     }
 }
