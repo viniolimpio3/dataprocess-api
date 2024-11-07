@@ -9,5 +9,13 @@ namespace data_process_api.Models {
         public string? Celular { get; set; }
         public string? Endereco { get; set; }
 
+
+        public Funcionario(string nome, DateTime nascimento,string celular, string endereco)
+        {
+            this.Nome = nome; 
+            this.Nascimento = nascimento;
+            this.Celular = celular;
+            this.Endereco = endereco;
+        }
     }
 }
