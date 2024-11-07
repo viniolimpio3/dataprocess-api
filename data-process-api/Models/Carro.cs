@@ -4,7 +4,7 @@ namespace data_process_api.Models {
     public class Carro {
         public int Id { get; set; }
         public string Modelo { get; set; }
-        public string _ano {  get; set; }
+        public string _ano { get; set; }
         public string Ano {
             get => _ano;
             set {
@@ -16,7 +16,7 @@ namespace data_process_api.Models {
             }
         }
         public string Cor { get; set; }
-        private string _placa {  get; set; }
+        private string _placa { get; set; }
         public string Placa {
             get => this._placa;
             set {

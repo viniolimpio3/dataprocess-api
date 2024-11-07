@@ -1,4 +1,5 @@
 ﻿using data_process_api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,6 +19,7 @@ namespace data_process_api.Controllers {
 
         // GET: api/<EntityController>
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<TEntity>>> GetAll() {
             try {
                 var entities = await _dbSet.ToListAsync();
@@ -30,6 +32,7 @@ namespace data_process_api.Controllers {
 
         // GET api/<EntityController>/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id) {
             try {
                 var entity = await _dbSet.FindAsync(id);
@@ -46,6 +49,7 @@ namespace data_process_api.Controllers {
 
         // POST api/<EntityController>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] TEntity entity) {
             try {
                 await _dbSet.AddAsync(entity);
@@ -59,6 +63,7 @@ namespace data_process_api.Controllers {
 
         // PUT api/<EntityController>/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, [FromBody] TEntity updatedEntity) {
             try {
                 var entity = await _dbSet.FindAsync(id);
@@ -78,6 +83,7 @@ namespace data_process_api.Controllers {
 
         // DELETE api/<EntityController>/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id) {
             try {
                 var entity = await _dbSet.FindAsync(id);

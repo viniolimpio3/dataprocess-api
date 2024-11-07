@@ -9,7 +9,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,6 +34,7 @@ builder.Services.AddApiVersioning(options => {
 });
 
 
+builder.Services.AddCors();
 
 //AddAuthentication
 builder.Services.AddAuthentication(options => {
@@ -60,6 +60,17 @@ builder.Services.AddAuthentication(options => {
 
 
 var app = builder.Build();
+
+app.UseCors(builder => builder
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials()
+    //.WithOrigins("http://localhost", "https://dataprocess-react-app.vercel.app/", "https://dev-dataprocess-react-app.vercel.app/")
+    //.WithMethods("GET", "POST", "PUT", "DELETE") /* assuming your endpoint only supports GET */
+    //.WithHeaders("Origin", "Authorization") /* headers apart of safe-list ones that you use */
+);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
