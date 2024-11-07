@@ -8,6 +8,13 @@ namespace data_process_api.Models {
         public string Bairro { get; set; }
         public double DistanciaEmKm { get; set; }
 
-
+        public Regiao( string regiaoEntrega,string cidade, string bairro, double distanciaEmKm)
+        {
+            this.RegiaoEntrega = regiaoEntrega;
+            this.Cidade = cidade;
+            this.Bairro = bairro;
+            this.DistanciaEmKm = distanciaEmKm;
+            
+        }
     }
 }

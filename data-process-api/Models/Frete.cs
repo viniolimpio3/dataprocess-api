@@ -10,5 +10,19 @@ namespace data_process_api.Models {
         public string Descricao { get; set;}
         public double Peso { get; set; }
         public string Endereco { get; set; }
+
+
+        public Frete(int regiaoId,int empresaClienteId,int carroId,int repasseMotorista, double valor,string descricao,double peso,string endereco)
+        {
+            this.RegiaoId = regiaoId;
+            this.EmpresaClienteId = empresaClienteId;
+            this.CarroId =carroId;
+            this.RepasseMotorista = repasseMotorista; 
+            this.Valor = valor; 
+            this.Descricao = descricao; 
+            this.Peso = peso; 
+            this.Endereco = endereco;
+            
+        }
     }
 }

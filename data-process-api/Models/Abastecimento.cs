@@ -16,6 +16,16 @@ namespace data_process_api.Models {
         public double QuilometragemAtual { get; set; }
         public DateTime Date { get; set; }
 
+        public Abastecimento(string tipoCombustivel,double valor,string cidate, Carro carro, double quilometragemAtual,DateTime date)
+        {
+            this.TipoCombustivel = tipoCombustivel;
+            this.Valor = valor;
+            this.Cidade = cidate;
+            this.Carro = carro;
+            this.QuilometragemAtual = quilometragemAtual;
+            this.Date = date;
+        }
+
     }
 
 }

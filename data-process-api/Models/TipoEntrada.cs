@@ -5,6 +5,11 @@ namespace data_process_api.Models {
         public int Id { get; set; }
         public string Descricao { get; set; }
 
+        public TipoEntrada(string descricao)
+        {
+                this.Descricao = descricao;
+        }
+
     }
 
 }
