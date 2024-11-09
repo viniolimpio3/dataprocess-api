@@ -16,6 +16,21 @@ namespace data_process_api.Models {
         public DateTime DataPrevista { get; set; }
         public double QuilometragePrevista { get; set; }
 
+        //public Manutencao(DateTime date, string tipoManutencao,int carroId, int mecanicoId,double quilometragemAtual, string descricao,double valorMaoDeObra,double valorPecas,int formaPagamentoId,DateTime dataPrevista,double quilometragemPrevista)
+        //{
+        //    this.Date = date;
+        //    this.TipoManutencao = tipoManutencao; 
+        //    this.CarroId = carroId; 
+        //    this.MecanicoId = mecanicoId;
+        //    this.QuilometragemAtual = quilometragemAtual;
+        //    this.Descricao = descricao;
+        //    this.ValorMaoDeObra = valorMaoDeObra; 
+        //    this.ValorMaoDeObra = ValorMaoDeObra; 
+        //    this. ValorPecas = valorPecas;
+        //    this.DataPrevista = dataPrevista;
+        //    this.QuilometragePrevista = quilometragemPrevista;
+                
+        //}
 
 
 
