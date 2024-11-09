@@ -7,9 +7,6 @@ namespace data_process_api.Models {
 
     public class EmpresaCliente {
 
-        public EmpresaCliente() {
-
-        }
 
         public EmpresaCliente(string cnpj, string endereco, string telefone, string email) {
             if (!string.IsNullOrEmpty(telefone) && !string.IsNullOrEmpty(endereco) && !string.IsNullOrEmpty(cnpj)) {
@@ -37,17 +34,6 @@ namespace data_process_api.Models {
         public string? Email { get; set; }
         public string Cnpj { get; set; }
         public string Endereco { get; set; }
-
-        public  EmpresaCliente(string cnpj, string endereco, string telefone, string email)
-        {
-            this.Cnpj = cnpj;
-            this.Telefone = telefone;
-            this.Endereco = endereco;
-            this.Email = email;                   
-
-        }    
-        
-
         
     }
 }

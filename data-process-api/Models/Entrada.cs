@@ -1,4 +1,4 @@
-namespace data_process_api.Models { 
+namespace data_process_api.Models {
 
     public class Entrada {
 
@@ -12,19 +12,18 @@ namespace data_process_api.Models {
         public DateTime DataLimiteRecebimento { get; set; }
         public DateTime DataRecebimento { get; set; }
 
-        public Entrada(string descricao,int tipoId,int formaPagamentoId,int empresaClienteId,int freteId,DateTime dataEmissao, DateTime dataLimiteRecebimento,DateTime dataRecebimento)
-        {
-            this.Descricao = descricao;
-            this.TipoId = tipoId;
-            this.FormaPagamentoId = formaPagamentoId;
-            this.EmpresaClienteId = empresaClienteId;
-            this.FreteId = freteId;
-            this.DataEmissao = dataEmissao;
-            this.DataLimiteRecebimento = dataLimiteRecebimento;
-            this.DataRecebimento = dataRecebimento;
+        //public Entrada(string descricao, int tipoId, int formaPagamentoId, int empresaClienteId, int freteId, DateTime dataEmissao, DateTime dataLimiteRecebimento, DateTime dataRecebimento) {
+        //    this.Descricao = descricao;
+        //    this.TipoId = tipoId;
+        //    this.FormaPagamentoId = formaPagamentoId;
+        //    this.EmpresaClienteId = empresaClienteId;
+        //    this.FreteId = freteId;
+        //    this.DataEmissao = dataEmissao;
+        //    this.DataLimiteRecebimento = dataLimiteRecebimento;
+        //    this.DataRecebimento = dataRecebimento;
 
-            
-        }
+
+        //}
 
 
 

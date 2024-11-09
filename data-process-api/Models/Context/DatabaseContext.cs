@@ -6,6 +6,19 @@ namespace data_process_api.Models.Context {
         public DbSet<Carro> Carros { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Abastecimento> Abastecimentos { get; set; }
+        public DbSet<CarroFuncionario> CarroFuncionarios { get; set; }
+        public DbSet<EmpresaCliente> EmpresasCliente { get; set; }
+        public DbSet<Entrada> Entradas { get; set; }
+        public DbSet<Fornecedor> Fornecedores { get; set; }
+        public DbSet<Frete> Fretes { get; set; }
+        public DbSet<Manutencao> Manutencoes { get; set; }
+        public DbSet<PrecoPadrao> PrecosPadrao { get; set; }
+        public DbSet<Regiao> Regiao { get; set; }
+        public DbSet<Saida> Saidas { get; set; }
+        public DbSet<TipoEntrada> TiposEntrada { get; set; }
+        public DbSet<TipoFuncionario> TiposFuncionario { get; set; }
+        public DbSet<TipoSaida> TiposSaida { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);

@@ -29,10 +29,15 @@ namespace data_process_api.Controllers {
             try {
                 var userExists = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == model.Email);
 
+                if (!Crypt.IsBase64String(model.Password))
+                    throw new Exception("Erro nos parâmetros enviados");
+
+                model.Password = Encoding.UTF8.GetString(Convert.FromBase64String(model.Password));
+
                 if (userExists is not null)
                     return StatusCode(
                         StatusCodes.Status400BadRequest,
-                        new ResponseModel { Success = false, Message = "Usuário já existe!" }
+                        new ResponseModel { Success = false, Message = "Erro ao criar usuário!" }
                     );
 
                 await _context.Usuarios.AddAsync(new Usuario(model.Nome, model.Email, Crypt.HashPassword(model.Password)));
@@ -52,7 +57,7 @@ namespace data_process_api.Controllers {
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] Usuario model) {
+        public async Task<IActionResult> LoginAsync([FromBody] UserLoginModel model) {
 
             try {
 
@@ -65,7 +70,7 @@ namespace data_process_api.Controllers {
                 var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == Crypt.HashPassword(model.Password));
 
                 if (user == null) {
-                    return StatusCode(StatusCodes.Status404NotFound, new ResponseModel { Success = false, Message = "Não autorizado" });
+                    return Unauthorized(new ResponseModel { Success = false, Message = "Não autorizado" });
                 }
 
                 var authClaims = new List<Claim> {
@@ -121,6 +126,10 @@ namespace data_process_api.Controllers {
 
                 Usuario user = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email.Equals(email));
 
+                if (user == null)
+                    return Unauthorized(new ResponseModel { Success = false, Message = "Não autorizado" });
+
+
                 return Ok(new ResponseModel { Success = true, Data = user });
             } catch (Exception ex) {
                 return StatusCode(StatusCodes.Status400BadRequest,
@@ -146,6 +155,21 @@ namespace data_process_api.Controllers {
             } catch (Exception ex) {
                 return StatusCode(StatusCodes.Status400BadRequest,
                     new ResponseModel { Success = false, Message = "Erro ao deletar. " + ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("recover")]
+        public async Task<IActionResult> RecoverUser([FromBody] UserRecoverModel user) {
+
+            try {
+
+                // [TODO]
+                return Ok(new ResponseModel { Success = true, Message = "[TODO]" });
+            } catch (Exception ex) {
+                return StatusCode(StatusCodes.Status400BadRequest,
+                    new ResponseModel { Success = false, Message = "Erro na recuperação. " + ex.Message });
             }
         }
     }

@@ -5,11 +5,11 @@ namespace data_process_api.Models {
 
         }
 
-        public Abastecimento(string tipoCombustivel, double valor, string Cidadade) {
-            this.TipoCombustivel = tipoCombustivel;
-            this.Valor = valor;
-            this.Cidade = Cidadade;
-        }
+        //public Abastecimento(string tipoCombustivel, double valor, string Cidadade) {
+        //    this.TipoCombustivel = tipoCombustivel;
+        //    this.Valor = valor;
+        //    this.Cidade = Cidadade;
+        //}
 
         public int Id { get; set; }
         public string? TipoCombustivel { get; set; }
