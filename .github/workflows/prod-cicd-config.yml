@@ -56,13 +56,13 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o dataprocess-api
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/dataprocess-api
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: dataprocess-api
+          path: ${{env.DOTNET_ROOT}}/dataprocess-api
 
   deploy:
     permissions:
