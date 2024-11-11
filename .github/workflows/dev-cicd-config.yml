@@ -56,7 +56,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish data-process-api/data-process-api/data-process-api.csproj -c Release -o dataprocess-api
+        run: dotnet publish data-process-api/data-process-api.csproj -c Release -o dataprocess-api
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
