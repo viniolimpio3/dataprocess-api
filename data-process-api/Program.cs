@@ -16,6 +16,24 @@ builder.WebHost.UseKestrel(options => {
     options.ListenAnyIP(int.Parse(port));
 });
 
+// CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000",
+                               "http://localhost:5026",
+                               "https://dev-dataprocess.vercel.app",
+                               "https://dataprocess-react-app.vercel.app",
+                               "https://dev-dataprocess-api.azurewebsites.net",
+                               "https://dataprocess-api.azurewebsites.net")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials();
+        });
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
