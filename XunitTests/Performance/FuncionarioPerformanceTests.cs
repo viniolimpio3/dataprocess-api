@@ -51,7 +51,7 @@
 
         private async Task<TokenModel> ObterTokenDeAutenticacaoAsync() {
             
-            var response = await _auth.LoginAsync(new Usuario { Email = "vini@teste.com", Password = "1234" });
+            var response = await _auth.LoginAsync(new UserLoginModel { Email = "vini@teste.com", Password = "1234" });
 
             var okResult = response as ObjectResult;
 

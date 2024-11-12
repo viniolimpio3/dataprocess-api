@@ -54,7 +54,11 @@ namespace data_process_api.Controllers {
             try {
                 await _dbSet.AddAsync(entity);
                 await _context.SaveChangesAsync();
-                return Ok(new ResponseModel { Success = true, Message = "Inserido com sucesso.", Data = entity });
+
+                return StatusCode(
+                    StatusCodes.Status201Created,
+                    new ResponseModel { Success = true, Message = "Inserido com sucesso!", Data = entity }
+                );
             } catch (Exception ex) {
                 return StatusCode(StatusCodes.Status400BadRequest,
                     new ResponseModel { Success = false, Message = "Erro ao inserir. " + ex.Message });
