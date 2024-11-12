@@ -22,7 +22,7 @@ name: Dev - Build and Deploy API to Azure Web App
 env:
   AZURE_WEBAPP_NAME: dev-dataprocess-api    # set this to the name of your Azure Web App
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '8'                 # set this to the .NET Core version to use
+  DOTNET_VERSION: '8.0.x'                 # set this to the .NET Core version to use
 
 on:
   push:
@@ -53,7 +53,7 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build data-process-api/data-process-api.csproj --configuration Release
 
       - name: dotnet publish
         run: dotnet publish data-process-api/data-process-api.csproj -c Release -o dataprocess-api
