@@ -29,9 +29,10 @@ namespace data_process_api.Controllers {
             try {
                 var userExists = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == model.Email);
 
-                if (!Crypt.IsBase64String(model.Password))
+                if (!Crypt.IsBase64String(model.Password) && !Crypt.IsBase64String(model.Email))
                     throw new Exception("Erro nos parâmetros enviados");
 
+                model.Email = Encoding.UTF8.GetString(Convert.FromBase64String(model.Email));
                 model.Password = Encoding.UTF8.GetString(Convert.FromBase64String(model.Password));
 
                 if (userExists is not null)
@@ -62,7 +63,7 @@ namespace data_process_api.Controllers {
             try {
 
                 if (!Crypt.IsBase64String(model.Email) || !Crypt.IsBase64String(model.Password))
-                    return Unauthorized(new ResponseModel { Success = false, Message = "Não autorizado" });
+                    return Unauthorized(new ResponseModel { Success = false, Message = "Erro nos parâmetros enviados" });
 
                 model.Email = Encoding.UTF8.GetString(Convert.FromBase64String(model.Email));
                 model.Password = Encoding.UTF8.GetString(Convert.FromBase64String(model.Password));

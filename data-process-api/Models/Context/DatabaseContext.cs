@@ -11,6 +11,8 @@ namespace data_process_api.Models.Context {
         public DbSet<EmpresaCliente> EmpresasCliente { get; set; }
         public DbSet<Entrada> Entradas { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
+        public DbSet<FormaPagamento> FormasPagamento { get; set; }
+        public DbSet<RepasseMotorista> RepassesMotorista { get; set; }
         public DbSet<Frete> Fretes { get; set; }
         public DbSet<Manutencao> Manutencoes { get; set; }
         public DbSet<PrecoPadrao> PrecosPadrao { get; set; }
@@ -49,6 +51,12 @@ namespace data_process_api.Models.Context {
 
             modelBuilder.Entity<Frete>().ToTable("Fretes");
             modelBuilder.Entity<Frete>().HasKey(p => p.Id);
+
+            modelBuilder.Entity<RepasseMotorista>().ToTable("RepasseMotorista");
+            modelBuilder.Entity<RepasseMotorista>().HasKey(p => p.Id);
+
+            modelBuilder.Entity<FormaPagamento>().ToTable("FormasPagamento");
+            modelBuilder.Entity<FormaPagamento>().HasKey(p => p.Id);
 
             modelBuilder.Entity<Manutencao>().ToTable("Manutencoes");
             modelBuilder.Entity<Manutencao>().HasKey(p => p.Id);

@@ -5,7 +5,7 @@ namespace data_process_api.Models {
         public int RegiaoId { get; set; }
         public int EmpresaClienteId { get; set; }
         public int CarroId { get; set; }
-        public int RepasseMotorista { get; set;}
+        public int IdRepasseMotorista { get; set;}
         public double Valor { get; set;}
         public string Descricao { get; set;}
         public double Peso { get; set; }

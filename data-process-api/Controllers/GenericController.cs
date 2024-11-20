@@ -1,4 +1,5 @@
 ﻿using data_process_api.Models;
+using data_process_api.Models.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,10 @@ namespace data_process_api.Controllers {
     [Produces("application/json")]
     [Route("api/v{v:apiVersion}/[controller]")]
     public abstract class GenericController<TEntity> : ControllerBase where TEntity : class {
-        private readonly DbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly DatabaseContext _context;
+        protected readonly DbSet<TEntity> _dbSet;
 
-        protected GenericController(DbContext context) {
+        protected GenericController(DatabaseContext context) {
             _context = context;
             _dbSet = _context.Set<TEntity>();
         }
@@ -20,7 +21,7 @@ namespace data_process_api.Controllers {
         // GET: api/<EntityController>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<TEntity>>> GetAll() {
+        public virtual async Task<ActionResult<IEnumerable<TEntity>>> GetAll() {
             try {
                 var entities = await _dbSet.ToListAsync();
                 return Ok(new ResponseModel { Success = true, Message = "Sucesso", Data = entities });
