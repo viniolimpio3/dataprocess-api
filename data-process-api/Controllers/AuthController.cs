@@ -92,7 +92,7 @@ namespace data_process_api.Controllers {
             var token = new JwtSecurityToken(
                 issuer: Environment.GetEnvironmentVariable("JWT_ISSUER") ?? _configuration["JWT:ValidIssuer"],
                 audience: Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddHours(24),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
             );
@@ -110,7 +110,6 @@ namespace data_process_api.Controllers {
         public async Task<IActionResult> GetCurrentUser() {
 
             try {
-
                 var authorization = Request.Headers["Authorization"][0];
 
                 if (string.IsNullOrEmpty(authorization))

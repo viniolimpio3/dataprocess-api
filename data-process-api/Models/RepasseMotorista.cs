@@ -6,6 +6,6 @@
         public double? CustoHospedagem { get; set; }
         public double? CustoAlimentacao { get; set; }
 
-        public bool? status {  get; set; }
+        public bool? Status {  get; set; }
     }
 }

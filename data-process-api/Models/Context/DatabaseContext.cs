@@ -83,8 +83,6 @@ namespace data_process_api.Models.Context {
             modelBuilder.Entity<Usuario>().HasKey(p => p.Id);
 
 
-
-
         }
     }
 }

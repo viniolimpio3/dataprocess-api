@@ -72,8 +72,10 @@ namespace data_process_api.Controllers {
                         funcionario.Id,
                         funcionario.Nome,
                         rf.frete.Valor,
+                        rf.repasse.Status,
                         rf.repasse.CustoAlimentacao,
                         rf.repasse.CustoHospedagem,
+                        RepasseId = rf.repasse.Id,
                         FreteId = rf.frete.Id
                     }
                 )
@@ -105,7 +107,7 @@ namespace data_process_api.Controllers {
                 int countRepasses = await _context.RepassesMotorista.CountAsync();
 
                 var valorAPagar = await _context.RepassesMotorista
-                    .Where(r => r.status == false)
+                    .Where(r => r.Status == false)
                     .SumAsync(r => (r.CustoAlimentacao ?? 0) + (r.CustoHospedagem ?? 0) + r.Valor);
 
                 return Ok(new ResponseModel {
