@@ -1,19 +1,17 @@
 namespace data_process_api.Models { 
     public class Manutencao { 
 
-          
-
         public int Id { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Data { get; set; }
         public string TipoManutencao { get; set; }
         public int IdCarro { get; set; }
-        public double QuilometragemAtual { get; set; }
+        public double? QuilometragemAtual { get; set; }
         public string Descricao { get; set; }
-        public double ValorMaoDeObra { get; set; }
-        public double ValorPecas { get; set; }
-        public int FormaPagamentoId { get; set; }
-        public DateTime DataPrevista { get; set; }
-        public double QuilometragePrevista { get; set; }
+        public double? ValorMaoDeObra { get; set; }
+        public double? ValorPecas { get; set; }
+        public int IdFormaPagamento { get; set; }
+        public DateTime? DataPrevista { get; set; }
+        public double? QuilometragemPrevista { get; set; }
 
         //public Manutencao(DateTime date, string tipoManutencao,int carroId, int mecanicoId,double quilometragemAtual, string descricao,double valorMaoDeObra,double valorPecas,int formaPagamentoId,DateTime dataPrevista,double quilometragemPrevista)
         //{
