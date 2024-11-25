@@ -5,10 +5,10 @@
         }
 
         public int Id { get; set; } 
-        public string Tipo { get; set; }
+        public string? Tipo { get; set; }
         public string DadosDePagamento {  get; set; }
         public bool Status { get; set; }
-        public string Parcelas { get; set; }
+        public string? Parcelas { get; set; }
 
     }
 }
